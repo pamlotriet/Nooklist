@@ -1,0 +1,13 @@
+<ion-button
+  [fill]="fill()"
+  [disabled]="disabled()"
+  [shape]="shape()"
+  [color]="color()"
+  (click)="actionItem()"
+  class="bg-amber-300 rounded-lg w-32 h-4"
+>
+  {{ label() }}
+  @if (isIcon()) {
+  <ion-icon [slot]="iconSlot()" [name]="iconName()"></ion-icon>
+  }
+</ion-button>
