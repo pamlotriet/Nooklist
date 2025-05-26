@@ -1,5 +1,6 @@
 @import "tailwindcss";
+@import "primeicons/primeicons.css";
 
 :root {
-  --ion-color-base: #F5921B;
+  --ion-color-base: #f5921b;
 }

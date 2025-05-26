@@ -11,43 +11,31 @@ import {
 import { Capacitor } from '@capacitor/core';
 import { IonRouterOutlet } from '@ionic/angular/standalone';
 import { Observable } from 'rxjs';
+import { TabMenuComponent } from './shared/components/tab-menu/tab-menu.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [IonRouterOutlet],
+  imports: [IonRouterOutlet, TabMenuComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'nooklist';
+  router = inject(Router);
 
-  // firebaseAuth = inject(Auth);
+  isLoginRoute(): boolean {
+    const hiddenRoutes = ['/login'];
 
-  // user$: Observable<User | null> = new Observable<User | null>();
+    const isHidden = this.router.isActive('/login', {
+      paths: 'exact',
+      queryParams: 'exact',
+      fragment: 'ignored',
+      matrixParams: 'ignored',
+    });
 
-  // async ngOnInit(): Promise<void> {
-  //   await this.setPersistenceForPlatform();
-  //   this.user$ = user(this.firebaseAuth);
-  // }
-
-  // private async setPersistenceForPlatform(): Promise<void> {
-  //   const platform = Capacitor.getPlatform();
-  //   console.log('Platform:', platform);
-  //   const persistence =
-  //     platform === 'web'
-  //       ? browserSessionPersistence
-  //       : platform === 'ios'
-  //       ? inMemoryPersistence
-  //       : indexedDBLocalPersistence;
-
-  //   console.log('Persistence:', persistence);
-
-  //   try {
-  //     await setPersistence(this.firebaseAuth, persistence);
-  //     console.log('✅ Persistence set');
-  //   } catch (err) {
-  //     console.error('❌ Failed to set persistence:', err);
-  //   }
-  // }
+    hiddenRoutes.some((routes) => this.router.url.includes(routes));
+    return isHidden;
+  }
 }

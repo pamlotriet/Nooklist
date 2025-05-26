@@ -1,3 +1,7 @@
 <div class="flex p-6">
+  @if(isLoginRoute()){
   <ion-router-outlet></ion-router-outlet>
+  }@else{
+  <app-tab-menu></app-tab-menu>
+  }
 </div>
