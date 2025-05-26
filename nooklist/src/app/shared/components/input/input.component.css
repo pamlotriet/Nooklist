@@ -1,6 +1,9 @@
 .sc-ion-input-ios-h {
-
-  height: 36px;
-  min-height: 36px;
+  height: 42px;
+  min-height: 42px;
   padding-left: 6px !important;
+}
+
+ ion-icon {
+  color: #ff5722;
 }

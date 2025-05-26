@@ -2,10 +2,13 @@
   class="border-1 border-gray-300 rounded-lg"
   [fill]="fill()"
   [placeholder]="placeholder()"
-  [inputmode]="type()"
+  [type]="type()"
   [formControl]="control()"
 >
   @if (type() === 'password') {
-  <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+  <ion-input-password-toggle
+    color="danger"
+    slot="end"
+  ></ion-input-password-toggle>
   }
 </ion-input>

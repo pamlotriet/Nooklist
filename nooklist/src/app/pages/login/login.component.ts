@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { InputComponent } from '../../shared/components/input/input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent {
   fb: FormBuilder = inject(FormBuilder);
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router);
-
+  navControl = inject(NavController);
+  
   form = this.fb.nonNullable.group({
     email: [
       '',
@@ -29,16 +31,11 @@ export class LoginComponent {
     password: ['', Validators.required],
   });
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     const rawForm = this.form.getRawValue();
-    this.authService.login(rawForm.email, rawForm.password).subscribe({
-      next: () => {
-        this.router.navigateByUrl('home');
-      },
-      error: (error) => {
-        this.error = true;
-        console.error('Email/Password Sign-In error:', error);
-      },
-    });
+
+    const user = await this.authService.login(rawForm.email, rawForm.password);
+
+    this.navControl.navigateRoot('/home');
   }
 }

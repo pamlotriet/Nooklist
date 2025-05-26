@@ -1,5 +1,16 @@
-import { inject, Injectable } from '@angular/core';
-import { Auth, browserSessionPersistence, setPersistence, signInWithEmailAndPassword, signOut, User, user } from '@angular/fire/auth';
+import { inject, Injectable, OnInit } from '@angular/core';
+import {
+  Auth,
+  browserSessionPersistence,
+  indexedDBLocalPersistence,
+  inMemoryPersistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signOut,
+  User,
+  user,
+} from '@angular/fire/auth';
+import { Capacitor } from '@capacitor/core';
 import { Observable, from } from 'rxjs';
 
 @Injectable({
@@ -8,26 +19,48 @@ import { Observable, from } from 'rxjs';
 export class AuthService {
   firebaseAuth = inject(Auth);
 
-  // user$: Observable<User | null>;
+  // async login(email: string, password: string) {
+  //   console.log('Inside login');
+  //   // this.setPersistenceForPlatform();
+  //   const promise = signInWithEmailAndPassword(
+  //     this.firebaseAuth,
+  //     email,
+  //     password
+  //   ).then(() => {
+  //     console.log('logged in');
+  //     console.log(promise);
+  //   });
 
-  // constructor() {
-  //   this.setSessionStoragePersistence();
-  //   this.user$ = user(this.firebaseAuth);
+  //   return from(promise);
   // }
 
-  // private setSessionStoragePersistence(): void {
-  //   setPersistence(this.firebaseAuth, browserSessionPersistence);
-  // }
+  async login(email: string, password: string) {
+    console.log('Inside login');
 
-  login(email: string, password: string): Observable<void> {
-    const promise = signInWithEmailAndPassword(
-      this.firebaseAuth,
-      email,
-      password
-    ).then(() => {
-      //
-    });
-    return from(promise);
+    const platform = Capacitor.getPlatform();
+
+    try {
+      if (platform !== 'ios') {
+        console.log('Setting persistence for non-iOS platform:', platform);
+        await setPersistence(this.firebaseAuth, indexedDBLocalPersistence);
+        console.log('✅ Persistence set');
+      } else {
+        console.log('⚠️ Skipping setPersistence on iOS');
+        // Firebase will fall back to inMemoryPersistence in WebView
+      }
+
+      const userCredential = signInWithEmailAndPassword(
+        this.firebaseAuth,
+        email,
+        password
+      ).then((userCredential) => {
+        console.log('User signed in:', userCredential);
+        sessionStorage.setItem('user', JSON.stringify(userCredential.user));
+      });
+      console.log('Login promise:', userCredential);
+    } catch (e) {
+      console.error('❌ Login failed:', e);
+    }
   }
 
   logout(): Observable<void> {
