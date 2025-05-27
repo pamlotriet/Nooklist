@@ -1,16 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
-import {
-  Auth,
-  User,
-  user,
-  browserSessionPersistence,
-  indexedDBLocalPersistence,
-  setPersistence,
-  inMemoryPersistence,
-} from '@angular/fire/auth';
-import { Capacitor } from '@capacitor/core';
+import { Component, inject } from '@angular/core';
 import { IonRouterOutlet } from '@ionic/angular/standalone';
-import { Observable } from 'rxjs';
 import { TabMenuComponent } from './shared/components/tab-menu/tab-menu.component';
 import { Router } from '@angular/router';
 

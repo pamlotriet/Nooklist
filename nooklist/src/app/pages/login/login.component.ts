@@ -4,7 +4,7 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
-import { NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-login',
