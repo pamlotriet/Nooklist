@@ -1,7 +1,5 @@
 import { Component, input, output } from '@angular/core';
 import { IonButton, IonIcon } from '@ionic/angular/standalone';
-import { Stringifier } from 'postcss';
-
 @Component({
   selector: 'app-button',
   standalone: true,

@@ -1,10 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import {
+  IonIcon,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-tab-menu',
-  imports: [IonicModule,CommonModule],
+  imports: [IonTabBar, IonTabs, IonTabButton, IonIcon, CommonModule],
   templateUrl: './tab-menu.component.html',
   styleUrl: './tab-menu.component.css',
 })
