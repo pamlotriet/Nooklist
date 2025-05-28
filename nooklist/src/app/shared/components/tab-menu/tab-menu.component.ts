@@ -34,7 +34,6 @@ export class TabMenuComponent {
     { label: 'Home', icon: 'pi pi-home', route: '/home' },
     { label: 'Books', icon: 'pi pi-bookmark-fill ', route: 'books' },
     { label: 'Discover', icon: 'pi pi-glove', route: 'tabs/inbox' },
-    { label: 'Search', icon: 'pi pi-search', route: 'tabs/menu' },
     { label: 'More', icon: 'pi pi-ellipsis-h', route: 'tabs/menu' },
   ];
 
