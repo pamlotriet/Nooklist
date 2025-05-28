@@ -1,24 +1,13 @@
 <ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="home">
-      <ion-icon class="pi pi-home" style="font-size: 1rem"></ion-icon>
-      Home
+  <ion-tab-bar slot="bottom" class="pb-[5%]">
+    @for(tab of tabs; track tab){
+    <ion-tab-button
+      [routerLink]="tab.route"
+      routerLinkActive="active"
+    >
+      <ion-icon [class]="tab.icon" class="text-sm"></ion-icon>
+      <ion-label>{{ tab.label }}</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="books">
-      <i class="pi pi-bookmark-fill" style="font-size: 1rem"></i>
-      My Books
-    </ion-tab-button>
-    <ion-tab-button tab="discover">
-      <i class="pi pi pi-globe" style="font-size: 1rem"></i>
-      Discover
-    </ion-tab-button>
-    <ion-tab-button tab="search">
-      <i class="pi pi-search" style="font-size: 1rem"></i>
-      Search
-    </ion-tab-button>
-     <ion-tab-button tab="more">
-      <i class="pi pi-ellipsis-h" style="font-size: 1rem"></i>
-      More
-    </ion-tab-button>
+    }
   </ion-tab-bar>
 </ion-tabs>

@@ -3,4 +3,8 @@
 
 :root {
   --ion-color-base: #f5921b;
+  --ion-tab-bar-background: #fff;
+  --ion-tab-bar-color-selected: var(--ion-color-base);
+  --ion-color-primary: var(--ion-color-base);
+  --ion-tab-bar-color: var(--ion-color-base);
 }

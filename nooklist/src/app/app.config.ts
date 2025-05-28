@@ -10,6 +10,14 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { provideState, provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { authEffects } from './store/authentication-store/auth.effects';
+import {
+  authFeatureKey,
+  authReducer,
+} from './store/authentication-store/auth.reducers';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
@@ -20,5 +28,15 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     provideAnimationsAsync(),
     provideHttpClient(),
+    provideStore(),
+    provideEffects(authEffects),
+    provideState(authFeatureKey, authReducer),
+    provideStoreDevtools({
+      maxAge: 25,
+      autoPause: true,
+      trace: false,
+      traceLimit: 75,
+      connectInZone: true,
+    }),
   ],
 };

@@ -5,6 +5,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { NavController } from '@ionic/angular/standalone';
+import { AuthenticationFacade } from '../../store/authentication-store/auth.facade';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +18,10 @@ export class LoginComponent {
   error: boolean = false;
   fb: FormBuilder = inject(FormBuilder);
   authService: AuthService = inject(AuthService);
+  authFacade: AuthenticationFacade = inject(AuthenticationFacade);
   router: Router = inject(Router);
   navControl = inject(NavController);
-  
+
   form = this.fb.nonNullable.group({
     email: [
       '',
@@ -31,11 +33,12 @@ export class LoginComponent {
     password: ['', Validators.required],
   });
 
-  async onSubmit(): Promise<void> {
-    const rawForm = this.form.getRawValue();
+  login() {
+    const userDetails = {
+      email: this.form.getRawValue().email,
+      password: this.form.getRawValue().password,
+    };
 
-    const user = await this.authService.login(rawForm.email, rawForm.password);
-
-    this.navControl.navigateRoot('/home');
+    this.authFacade.signInWithUserNameAndPassword(userDetails);
   }
 }
